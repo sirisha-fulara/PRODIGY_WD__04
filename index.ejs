@@ -1,0 +1,78 @@
+<%- include ("partials/header.ejs") %>
+    <div class="main-container">
+        <div class="text">
+            <p class="para3"> Hey There!</p><br>
+            
+            <div class="console-container"><span id="text" style="color:#bfa181">I'm Sirisha Fulara</span>
+                <div class="console-underscore" id="console">
+                </div>
+            </div>
+            <p class="para2">Turning ideas into vibrant online experience and crafting stunning and user-friendly
+                websites. Welcome to my portfolio !!</p>
+            <br>
+            <div class="works-link">
+                <a id="works-link" href="#work-heading">My Works</a>
+            </div>
+        </div>
+        <div id="photo">
+            <img class="photo" src="mypic.jpg" alt="photo">
+        </div>
+    </div>
+    <script>    
+        consoleText(['I\'m Sirisha Fulara', 'A Web Developer'], 'text', ['#bfa181', '#178582']);
+        function consoleText(words, id, colors) {
+            if (colors === undefined) colors = ['#fff'];
+            var visible = true;
+            var con = document.getElementById('console');
+            var letterCount = 1;
+            var x = 1;
+            var waiting = false;
+            var target = document.getElementById(id)
+            target.setAttribute('style', 'color:' + colors[0])
+            window.setInterval(function () {
+
+                if (letterCount === 0 && waiting === false) {
+                    waiting = true;
+                    target.innerHTML = words[0].substring(0, letterCount)
+                    window.setTimeout(function () {
+                        var usedColor = colors.shift();
+                        colors.push(usedColor);
+                        var usedWord = words.shift();
+                        words.push(usedWord);
+                        x = 1;
+                        target.setAttribute('style', 'color:' + colors[0])
+                        letterCount += x;
+                        waiting = false;
+                    }, 1000)
+                } else if (letterCount === words[0].length + 1 && waiting === false) {
+                    waiting = true;
+                    window.setTimeout(function () {
+                        x = -1;
+                        letterCount += x;
+                        waiting = false;
+                    }, 1000)
+                } else if (waiting === false) {
+                    target.innerHTML = words[0].substring(0, letterCount)
+                    letterCount += x;
+                }
+            }, 120)
+            window.setInterval(function () {
+                if (visible === true) {
+                    con.className = 'console-underscore hidden'
+                    visible = false;
+
+                } else {
+                    con.className = 'console-underscore'
+
+                    visible = true;
+                }
+            }, 300)
+        }
+    </script>
+
+<%- include ("about.ejs") %>
+<%- include ("works.ejs") %>
+<br><br><br><br>
+<%- include ("contact.ejs") %>
+
+<%- include ("partials/footer.ejs") %>
